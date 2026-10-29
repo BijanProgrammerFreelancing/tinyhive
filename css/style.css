@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FunBun - Daycare and Foster Kids Landing Page
+   TinyHive - Daycare and Foster Kids Website
    Stylesheet
    ========================================================================== */
 
@@ -236,12 +236,12 @@ p{ margin: 0 0 16px; }
   font-size: 24px;
   letter-spacing: .02em;
 }
-.logo span:nth-child(1){ color: var(--brand-1); }
-.logo span:nth-child(2){ color: var(--brand-2); }
-.logo span:nth-child(3){ color: var(--brand-3); }
-.logo span:nth-child(4){ color: var(--brand-4); }
-.logo span:nth-child(5){ color: var(--brand-5); }
-.logo span:nth-child(6){ color: var(--brand-6); }
+.logo span:nth-child(6n+1){ color: var(--brand-1); }
+.logo span:nth-child(6n+2){ color: var(--brand-2); }
+.logo span:nth-child(6n+3){ color: var(--brand-3); }
+.logo span:nth-child(6n+4){ color: var(--brand-4); }
+.logo span:nth-child(6n+5){ color: var(--brand-5); }
+.logo span:nth-child(6n+6){ color: var(--brand-6); }
 
 .main-nav{
   display: flex;
@@ -597,12 +597,12 @@ p{ margin: 0 0 16px; }
   font-size: 26px;
   margin-bottom: 16px;
 }
-.footer-logo span:nth-child(1){ color: var(--brand-1); }
-.footer-logo span:nth-child(2){ color: var(--brand-2); }
-.footer-logo span:nth-child(3){ color: var(--brand-3); }
-.footer-logo span:nth-child(4){ color: var(--brand-4); }
-.footer-logo span:nth-child(5){ color: var(--brand-5); }
-.footer-logo span:nth-child(6){ color: var(--brand-6); }
+.footer-logo span:nth-child(6n+1){ color: var(--brand-1); }
+.footer-logo span:nth-child(6n+2){ color: var(--brand-2); }
+.footer-logo span:nth-child(6n+3){ color: var(--brand-3); }
+.footer-logo span:nth-child(6n+4){ color: var(--brand-4); }
+.footer-logo span:nth-child(6n+5){ color: var(--brand-5); }
+.footer-logo span:nth-child(6n+6){ color: var(--brand-6); }
 
 .footer-about p{ font-size: 14px; color: #9FADB2; max-width: 320px; }
 
