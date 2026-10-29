@@ -121,22 +121,6 @@ p{ margin: 0 0 16px; }
 .btn-teal{ background: var(--teal); color: #fff; }
 .btn-teal:hover{ background: var(--teal-dark); color: #fff; box-shadow: 0 12px 24px rgba(116,204,183,.35); }
 
-/* PRO badge
-   ========================================================================== */
-.badge-pro{
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .04em;
-  color: #fff;
-  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
-  padding: 2px 7px;
-  border-radius: 6px;
-  margin-left: 6px;
-  vertical-align: middle;
-  line-height: 1.6;
-}
-
 /* Decorative rings
    ========================================================================== */
 /* Five different drift paths so the rings don't move in lockstep */
@@ -642,9 +626,6 @@ p{ margin: 0 0 16px; }
   font-size: 13.5px;
   color: #84949A;
 }
-
-.footer-bottom a{ color: var(--orange); font-weight: 600; }
-.footer-bottom a:hover{ text-decoration: underline; }
 
 /* Inner page header (About / Blog / Contact / 404)
    ========================================================================== */
