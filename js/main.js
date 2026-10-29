@@ -115,4 +115,82 @@ document.addEventListener('DOMContentLoaded', function () {
     if (searchPanel && searchPanel.classList.contains('open')) closeSearch();
     if (nav && nav.classList.contains('open')) setNav(false);
   });
+
+  // Flying bees: one Lottie player per .bee / .bg-bee element
+  var bees = document.querySelectorAll('.bee, .bg-bee');
+  if (bees.length && window.lottie && window.TINYHIVE_BEE) {
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Bees are hidden on small screens, so only start the ones that are actually visible
+    function startVisibleBees() {
+      bees.forEach(function (el) {
+        if (el.dataset.beeStarted || !el.getClientRects().length) return;
+        el.dataset.beeStarted = 'true';
+
+        var anim = lottie.loadAnimation({
+          container: el,
+          renderer: 'svg',
+          loop: true,
+          autoplay: false,
+          // lottie mutates its input, so each player gets its own copy
+          animationData: JSON.parse(JSON.stringify(window.TINYHIVE_BEE))
+        });
+        // Random start frame and speed so the wings don't flap in sync
+        var frame = Math.random() * anim.totalFrames;
+        if (reduceMotion) {
+          anim.goToAndStop(frame, true);
+        } else {
+          anim.setSpeed(0.85 + Math.random() * 0.3);
+          anim.goToAndPlay(frame, true);
+        }
+      });
+    }
+
+    startVisibleBees();
+    window.addEventListener('resize', startVisibleBees);
+
+    // Scroll parallax: bigger bees read as closer, so they move faster.
+    // Uses the `translate` property so it stacks with the CSS drift transform and .flip scale.
+    if (!reduceMotion) {
+      var ticking = false;
+
+      function updateParallax() {
+        ticking = false;
+        var scrollY = window.scrollY;
+        var vh = window.innerHeight;
+
+        // Read all layout first, then write, to avoid layout thrashing
+        var offsets = Array.prototype.map.call(bees, function (el) {
+          var w = el.offsetWidth;
+          if (!w) return null;
+
+          if (el.classList.contains('bg-bee')) {
+            // Fixed background bees: drift upward and wrap around the viewport,
+            // so they keep flying past on long pages
+            var h = el.offsetHeight;
+            var range = vh + h;
+            var y = el.offsetTop - scrollY * (w / 110) * 0.3;
+            var wrapped = ((y + h) % range + range) % range - h;
+            return wrapped - el.offsetTop;
+          }
+          // Hero bees scroll with the page; pull them up faster than the content
+          return -scrollY * (w / 170) * 0.5;
+        });
+
+        bees.forEach(function (el, i) {
+          if (offsets[i] !== null) el.style.translate = '0 ' + offsets[i].toFixed(1) + 'px';
+        });
+      }
+
+      function requestParallax() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateParallax);
+      }
+
+      window.addEventListener('scroll', requestParallax, { passive: true });
+      window.addEventListener('resize', requestParallax);
+      updateParallax();
+    }
+  }
 });
